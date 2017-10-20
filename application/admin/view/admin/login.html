@@ -1,0 +1,120 @@
+﻿<!doctype html>
+<meta name=”renderer” content=”webkit”>
+<meta http-equiv=”X-UA-Compatible” content=”IE=Edge,chrome=1″ >
+<head>
+<meta charset="utf-8">
+<title>登录页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="shortcut icon" type="image/x-icon" href="__PUBLIC__/images/favicon.ico" media="screen"/>
+<link rel="icon" href="__PUBLIC__/animated_favicon.gif" type="image/gif" />
+<link href="__PUBLIC__/css/login.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="__PUBLIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.superslide.2.1.2.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.validation.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.cookie.js"></script>
+<!--[if lte IE 8]>
+	<script type="Text/Javascript" language="JavaScript">
+	    function detectBrowser()
+	    {
+		    var browser = navigator.appName
+		    if(navigator.userAgent.indexOf("MSIE")>0){ 
+			    var b_version = navigator.appVersion
+				var version = b_version.split(";");
+				var trim_Version = version[1].replace(/[ ]/g,"");
+			    if ((browser=="Netscape"||browser=="Microsoft Internet Explorer"))
+			    {
+			    	if(trim_Version == 'MSIE8.0' || trim_Version == 'MSIE7.0' || trim_Version == 'MSIE6.0'){
+			    		alert('请使用IE9.0版本以上进行访问');
+			    		return false;
+			    	}
+			    }
+		    }
+	   }
+       detectBrowser();
+    </script>
+<![endif]-->
+<!-- <script type="text/javascript">
+//若cookie值不存在，则跳出iframe框架
+if(!$.cookie('tpshopActionParam') && $.cookie('admin_type') != 1){
+	$.cookie('admin_type','1' , {expires: 1 ,path:'/'});
+	//top.location.href = location.href;
+}
+</script> -->
+</head>
+
+<body>
+	<div class="login-layout">
+    	<div class="logo"><img src="__PUBLIC__/picture/loginimg.png"></div>
+        <form action="" name='theForm' id="theForm" method="post">
+            <div class="login-form" style="position: relative">
+                <div class="formContent">
+                	<div class="title">管理中心</div>
+                    <div class="formInfo">
+                    	<div class="formText">
+                        	<i class="icon icon-user"></i>
+                            <input type="text" name="username" id='username' autocomplete="off" class="input-text" value="" placeholder="用户名" />
+                        </div>
+                        <div class="formText">
+                        	<i class="icon icon-pwd"></i>
+                            <input type="password" name="password" id='password' autocomplete="off" class="input-text" value="" placeholder="密  码" />
+                        </div>
+                        <div class="formText">
+                            <i class="icon icon-chick"></i>
+                            <input type="text" name="vertify" id='captcha' autocomplete="off" class="input-text chick_ue" value="" placeholder="验证码" />
+                            <img src="{:captcha_src()}" alt="captcha" class="chicuele" id="imgVerify" onclick="this.src=this.src+'?abc='+Math.random();" />
+                        </div>
+                        <div class="formText">
+                            <a href="/admin/Admin/forget_pwd" class="forget_pwd">忘记密码？</a>
+                        </div>
+						<div class="formText submitDiv">
+                          <span class="submit_span">
+                          	<input type="button" name="submit" class="sub" value="登录">
+                          </span>
+                       </div>
+                    </div>
+                </div>
+                <div id="error" style="position: absolute;left:0px;bottom: 12px;text-align: center;width:441px;">
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="bannerBox">
+        <ul id="slideBanner" class="slideBanner">
+            <li><img src="__PUBLIC__/picture/banner_1.jpg"></li>
+            <li><img src="__PUBLIC__/picture/banner_2.jpg"></li>        
+        </ul>
+    </div>   
+    <script type="text/javascript">
+        //背景动画s
+    	$("#bannerBox").slide({mainCell:".slideBanner",effect:"fold",interTime:3500,delayTime:500,autoPlay:true,autoPage:true,endFun:function(i,c,s){
+			$(window).resize(function(){
+				var width = $(window).width();
+				var height = $(window).height();
+				s.find(".slideBanner,.slideBanner li").css({"width":width,"height":height});
+			});
+		}});
+		//背景动画e
+        $('.sub').click(function () {
+            var name = $('#username').val();
+            var password = $('#password').val();
+            var captcha = $("#captcha").val();
+            $.post(
+                    "{:url('admin/Admin/doLogin')}",
+                    {"username":name,"password":password,"captcha":captcha},
+                    function(data){
+                       var data = JSON.parse(data);
+                        if(data.status == 0){
+                            $('#error').html('<span class="error">'+ data.msg +'</span>');
+                        }else{
+                            $(location).attr('href', "{:url('admin/Index/index')}");
+                        }
+                    },
+                    "json",
+                    );
+            return false;
+        });
+    </script>
+</body>
+</html>
