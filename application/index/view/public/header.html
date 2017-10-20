@@ -1,0 +1,263 @@
+<div class="tpshop-tm-hander">
+	<div class="top-hander clearfix">
+		<div class="w1224 pr clearfix">
+			<div class="fl">
+			    <link rel="stylesheet" href="css/location.css" type="__PUBLIC__/text/css"><!-- 收货地址，物流运费 -->
+                <div class="sendaddress pr fl">
+                          <span>送货至：</span>
+                          <!-- <span>深圳<i class="share-a_a1"></i></span>-->
+                          <span>
+                              <ul class="list1">
+                                  <li class="summary-stock though-line">
+                                      <div class="dd" style="border-right:0px;width:200px;">
+                                          <div class="store-selector add_cj_p">
+                                              <div class="text"><div></div><b></b></div>
+                                              <div onclick="$(this).parent().removeClass('hover')" class="close"></div>
+                                          </div>
+                                      </div>
+                                  </li>
+                              </ul>
+                          </span>
+                </div>
+                <script src="__PUBLIC__/js/location.js"></script>
+                <!--判断是否是登录js在common.js中-->
+                <div class="fl nologin">
+					<a class="red" href="/Home/user/login.html">登录</a>
+					<a href="/Home/user/reg.html">注册</a>
+				</div>
+				<div class="fl islogin hide">
+					<a class="red userinfo" href="/Home/user/index.html"></a>
+					<a  href="/Home/user/logout.html"  title="退出" target="_self">安全退出</a>
+				</div>
+			</div>
+			<ul class="top-ri-header fr clearfix">
+				<li><a target="_blank" href="/Home/Order/order_list.html">我的订单</a></li>
+				<li class="spacer"></li>
+				<li><a target="_blank" href="/Home/User/visit_log.html">我的浏览</a></li>
+				<li class="spacer"></li>
+				<li><a target="_blank" href="/Home/User/goods_collect.html">我的收藏</a></li>
+				<li class="spacer"></li>
+				<li>客户服务</li>
+				<li class="spacer"></li>
+				<li class="hover-ba-navdh">
+					<div class="nav-dh">
+						<span>网站导航</span>
+						<i class="share-a_a1"></i>
+					</div>
+					<ul class="conta-hv-nav clearfix">
+						<li>
+							<a href="#">优惠活动</a>
+						</li>
+						<li>
+							<a href="#">预售活动</a>
+						</li>
+						<li>
+							<a href="#">拍卖活动</a>
+						</li>
+						<li>
+							<a href="#">兑换中心</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="nav-middan-z w1224 clearfix">
+		<a class="ecsc-logo" href="#"><img src="__PUBLIC__/picture/newlogo.png"></a>
+		<div class="ecsc-search">
+			<form id="searchForm" name="" method="get" action="/Home/Goods/search.html" class="ecsc-search-form">
+				<input autocomplete="off" name="q" id="q" type="text" value="" class="ecsc-search-input" placeholder="请输入搜索关键字...">
+				<button type="submit" class="ecsc-search-button">搜索</button>
+    			<div class="candidate p">
+                    <ul id="search_list"></ul>
+                </div>
+                <script type="text/javascript">
+                    ;(function($){
+                        $.fn.extend({
+                            donetyping: function(callback,timeout){
+                                timeout = timeout || 1e3;
+                                var timeoutReference,
+                                        doneTyping = function(el){
+                                            if (!timeoutReference) return;
+                                            timeoutReference = null;
+                                            callback.call(el);
+                                        };
+                                return this.each(function(i,el){
+                                    var $el = $(el);
+                                    $el.is(':input') && $el.on('keyup keypress',function(e){
+                                        if (e.type=='keyup' && e.keyCode!=8) return;
+                                        if (timeoutReference) clearTimeout(timeoutReference);
+                                        timeoutReference = setTimeout(function(){
+                                            doneTyping(el);
+                                        }, timeout);
+                                    }).on('blur',function(){
+                                        doneTyping(el);
+                                    });
+                                });
+                            }
+                        });
+                    })(jQuery);
+
+                    $('.ecsc-search-input').donetyping(function(){
+                        search_key();
+                    },500).focus(function(){
+                        var search_key = $.trim($('#q').val());
+                        if(search_key != ''){
+                            $('.candidate').show();
+                        }
+                    });
+                    $('.candidate').mouseleave(function(){
+                        $(this).hide();
+                    });
+
+                    function searchWord(words){
+                        $('#q').val(words);
+                        $('#searchForm').submit();
+                    }
+                    function search_key(){
+                        var search_key = $.trim($('#q').val());
+                        if(search_key != ''){
+                            $.ajax({
+                                type:'post',
+                                dataType:'json',
+                                data: {key: search_key},
+                                url:"/Home/Api/searchKey.html",
+                                success:function(data){
+                                    if(data.status == 1){
+                                        var html = '';
+                                        $.each(data.result, function (n, value) {
+                                            html += '<li onclick="searchWord(\''+value.keywords+'\');"><div class="search-item">'+value.keywords+'</div><div class="search-count">约'+value.goods_num+'个商品</div></li>';
+                                        });
+                                        html += '<li class="close"><div class="search-count">关闭</div></li>';
+                                        $('#search_list').empty().append(html);
+                                        $('.candidate').show();
+                                    }else{
+                                        $('#search_list').empty();
+                                    }
+                                }
+                            });
+                        }
+                    }
+                </script>
+			</form>
+			<div class="keyword clearfix">
+								<a class="key-item" href="/Home/Goods/search/q/%E6%89%8B%E6%9C%BA.html" target="_blank">手机</a>
+								<a class="key-item" href="/Home/Goods/search/q/%E5%B0%8F%E7%B1%B3.html" target="_blank">小米</a>
+								<a class="key-item" href="/Home/Goods/search/q/iphone.html" target="_blank">iphone</a>
+								<a class="key-item" href="/Home/Goods/search/q/%E4%B8%89%E6%98%9F.html" target="_blank">三星</a>
+								<a class="key-item" href="/Home/Goods/search/q/%E5%8D%8E%E4%B8%BA.html" target="_blank">华为</a>
+								<a class="key-item" href="/Home/Goods/search/q/%E5%86%B0%E7%AE%B1.html" target="_blank">冰箱</a>
+							</div>
+		</div>
+		<div class="u-g-cart fr" id="hd-my-cart">
+			<a href="/Home/Cart/index.html">
+			<div class="c-n fl">
+				<i class="share-shopcar-index"></i>
+				<span>我的购物车</span>
+				<em class="shop-nums" id="cart_quantity"></em>
+			</div>
+			</a>
+			<div class="u-fn-cart" id="show_minicart">
+				<div class="minicartContent" id="minicart">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="nav w1224 clearfix">
+		<div class="categorys home_categorys">
+			<div class="dt">
+				<a href="" target="_blank"><i class="share-a_a2"></i>全部商品分类</a>
+			</div>
+			<!--全部商品分类-s-->
+			<div class="dd">
+			<!--分类s-->
+				<div class="cata-nav" id="cata-nav">
+					<div class="item">
+						<div class="item-left">
+							<h3 class="cata-nav-name">
+								<i class="ico ico-nav-1"></i>
+								<a href="/Home/Goods/goodsList/id/1.html" title="手机 、 数码 、 通信">数码产品</a>
+								<!--<a href="" >手机店</a>-->
+							</h3>
+						</div>
+						<div class="cata-nav-layer">
+							<div class="cata-nav-left">
+								<div class="cata-layer-title">
+									<a class="layer-title-item" href="">手机<i class="ico ico-arrow-right">></i></a>
+									<a class="layer-title-item" href="">电脑<i class="ico ico-arrow-right">></i></a>
+								</div>
+								<div class="subitems">
+									<dl class="clearfix">
+											<dt><a href="/Home/Goods/goodsList/id/12.html" target="_blank">手机配件</a></dt>
+											<dd class="clearfix">
+												<a href="/Home/Goods/goodsList/id/102.html" target="_blank">贴膜,保护套</a>
+												<a href="/Home/Goods/goodsList/id/102.html" target="_blank">贴膜,保护套</a>	
+											</dd>
+									</dl>
+								</div>
+							</div>
+							<div class="advertisement_down">
+								<a href="http://www.tp-shop.cn" target="_blank">
+								<img class="w-100" src="__PUBLIC__/picture/ce541437e150a0e4ff8b174602962cf5.png" title=""/>
+								</a>
+								<a href="http://www.tp-shop.cn" target="_blank">
+								<img class="w-100" src="__PUBLIC__/picture/571d89bd99535.jpg" title=""/>
+								</a>
+								<a href="http://www.tp-shop.cn" target="_blank">
+								<img class="w-100" src="__PUBLIC__/picture/571d8b39793fb.jpg" title=""/>
+								</a>
+							</div>
+								<a href="http://www.tp-shop.cn" class="cata-nav-rigth" target="_blank">
+								<img class="w-100" src="__PUBLIC__/picture/b06ed7e423787cc91b0f31e15ca52a10.jpg" title="" />
+								</a>	
+						</div>
+					</div>
+				</div>
+			<!--分类e-->
+				<script>
+					$('#cata-nav').find('.item').hover(function () {
+						$(this).addClass('nav-active').siblings().removeClass('nav-active');
+					},function () {
+						$(this).removeClass('nav-active');
+					})
+				</script> 
+			</div>
+			<!--全部商品分类-e-->
+		</div>
+		<ul class="navitems clearfix" id="navitems">
+			<li>
+				<a href="/home/Index/index.html">首页</a>
+			</li>
+			<li>
+				<a href="/index.php?m=Home&amp;c=Goods&amp;a=goodsList&amp;id=123" target="_blank"  >手机城</a>
+			</li>
+			<li>
+				<a href="/index.php?m=Home&amp;c=Goods&amp;a=goodsList&amp;id=51" target="_blank"  >珠宝</a>
+			</li>
+			<li>
+				<a href="/index.php?m=Home&amp;c=Goods&amp;a=goodsList&amp;id=20" target="_blank"  >家电城</a>
+			</li>
+			<li>
+				<a href="/index.php?m=Home&c=Activity&a=promoteList"  >促销商品</a>
+			</li>
+			<li>
+				<a href="/index.php?m=Home&amp;c=Activity&amp;a=pre_sell_list" target="_blank"  >预售</a>
+			</li>
+			<li>
+				<a href="/index.php/Home/Goods/goodsList/id/1.html" target="_blank"  >数码城</a>
+			</li>
+			<li>
+				<a href="/index.php?m=Home&amp;c=Activity&amp;a=group_list"  >团购</a>
+			</li>
+			<li>
+				<a href="/index.php?m=Home&amp;c=Goods&amp;a=integralMall"  >积分商城</a>
+			</li>
+		</ul>
+	</div>
+</div>
+	<script>
+		$('#navitems').find('li').eq(0).addClass('selected');
+		$('#navitems').find('li').click(function () {
+			$(this).addClass('selected').siblings().removeClass('selected');
+		});
+	</script>
