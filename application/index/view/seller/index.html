@@ -1,0 +1,959 @@
+﻿<!doctype html>
+<html lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>海澜之家</title>
+
+<link href="__PUBLIC__/css/store_base.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/css/store_header.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/css/tpshop.css" rel="stylesheet" type="text/css">
+<script src="__PUBLIC__/js/global.js"></script>
+<!--[if IE 6]>
+<script src="__PUBLIC__/js/ie6_png.js"></script>
+<script>
+DD_belatedPNG.fix('.pngFix');
+</script>
+<script>
+// <![CDATA[
+if((window.navigator.appName.toUpperCase().indexOf("MICROSOFT")>=0)&&(document.execCommand))
+	try{
+		document.execCommand("BackgroundImageCache", false, true);
+	}
+	catch(e){}
+// ]]>
+</script>
+<![endif]-->
+<script>var _CHARSET = 'utf-8';</script>
+<script src="__PUBLIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PUBLIC__/js/common.js" charset="utf-8"></script>
+<script src="__PUBLIC__/js/layer.js"></script>
+<script type="text/javascript">
+var PRICE_FORMAT = '&yen;%s';
+$(function(){
+	$('#button').click(function(){
+	    if ($('#keyword').val() == '') {
+		    return false;
+	    }
+	});
+});
+
+$(function(){
+	//search
+	var act = "show_store";
+	if (act == "store_list"){
+		$("#search").children('ul').children('li:eq(1)').addClass("current");
+		$("#search").children('ul').children('li:eq(0)').removeClass("current");
+		}
+	$("#search").children('ul').children('li').click(function(){
+		$(this).parent().children('li').removeClass("current");
+		$(this).addClass("current");
+		$('#search_act').attr("value",$(this).attr("act"));
+		$('#keyword').attr("placeholder",$(this).attr("title"));
+	});
+	$("#keyword").blur();
+});
+</script>
+</head>
+<body>
+<!-- PublicTopLayout Begin -->
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="soubao-sidebar">
+    <div class="soubao-sidebar-bg"></div>
+    <div class="sidertabs tab-lis-1">
+        <div class="sider-top-stra sider-midd-1">
+            <div class="icon-tabe-chan">
+                <a href="/Home/User/index.html">
+                    <i class="share-side share-side1"></i>
+                    <i class="share-side tab-icon-tip triangleshow"></i>
+                </a>
+                <div class="dl_login">
+                    <div class="hinihdk">
+                        <img class="head_pic" src="__PUBLIC__/picture/dl.png"/>
+                        <p class="loginafter nologin"><span>你好，请先</span><a href="/index/user/login.html">登录</a>！</p>
+                        <!--未登录-e--->
+                        <!--登录后-s--->
+                        <p class="loginafter islogin"><span class="id_jq userinfo">陈xxxxxxx</span><span>点击</span><a href="/Home/user/logout.html">退出</a>！</p>
+                        <!--未登录-s--->
+                    </div>
+                </div>
+            </div>
+            <div class="icon-tabe-chan shop-car">
+                <a href="javascript:void(0);" onclick="ajax_side_cart_list()">
+                    <div class="tab-cart-tip-warp-box">
+                        <div class="tab-cart-tip-warp">
+                            <i class="share-side share-side1"></i>
+                            <i class="share-side tab-icon-tip"></i>
+                            <span class="tab-cart-tip">购物车</span>
+                            <span class="tab-cart-num J_cart_total_num" id="tab_cart_num">0</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="icon-tabe-chan massage">
+                <a href="/Home/User/message_notice.html" target="_blank">
+                    <i class="share-side share-side1"></i>
+                    <!--<i class="share-side tab-icon-tip"></i>-->
+                    <span class="tab-tip">消息</span>
+                </a>
+            </div>
+        </div>
+        <div class="sider-top-stra sider-midd-2">
+            <div class="icon-tabe-chan mmm">
+                <a href="/Home/User/goods_collect.html" target="_blank">
+                    <i class="share-side share-side1"></i>
+                    <!--<i class="share-side tab-icon-tip"></i>-->
+                    <span class="tab-tip">收藏</span>
+                </a>
+            </div>
+            <div class="icon-tabe-chan hostry">
+                <a href="/Home/User/visit_log.html" target="_blank">
+                    <i class="share-side share-side1"></i>
+                    <!--<i class="share-side tab-icon-tip"></i>-->
+                    <span class="tab-tip">足迹</span>
+                </a>
+            </div>
+      <!--      <div class="icon-tabe-chan sign">
+                <a href="" target="_blank">
+                    <i class="share-side share-side1"></i>
+                    &lt;!&ndash;<i class="share-side tab-icon-tip"></i>&ndash;&gt;
+                    <span class="tab-tip">签到</span>
+                </a>
+            </div>-->
+        </div>
+    </div>
+    <div class="sidertabs tab-lis-2">
+        <div class="icon-tabe-chan advice">
+            <a href="tencent://message/?uin=123456789&amp;Site=TPshop最好的开源商城系统&amp;Menu=yes">
+                <i class="share-side share-side1"></i>
+                <!--<i class="share-side tab-icon-tip"></i>-->
+                <span class="tab-tip">在线咨询</span>
+            </a>
+        </div>
+       <!-- <div class="icon-tabe-chan request">
+            <a href="" target="_blank">
+                <i class="share-side share-side1"></i>
+                &lt;!&ndash;<i class="share-side tab-icon-tip"></i>&ndash;&gt;
+                <span class="tab-tip">意见反馈</span>
+            </a>
+        </div>-->
+        <div class="icon-tabe-chan qrcode">
+            <a href="" target="_blank">
+                <i class="share-side share-side1"></i>
+                <i class="share-side tab-icon-tip triangleshow"></i>
+				<span class="tab-tip qrewm">
+					<img src="__PUBLIC__/picture/qrcode.png"/>
+					扫一扫下载APP
+				</span>
+            </a>
+        </div>
+        <div class="icon-tabe-chan comebacktop">
+            <a href="" target="_blank">
+                <i class="share-side share-side1"></i>
+                <!--<i class="share-side tab-icon-tip"></i>-->
+                <span class="tab-tip">返回顶部</span>
+            </a>
+        </div>
+    </div>
+    <div class="shop-car-sider">
+
+    </div>
+</div>
+<script src="__PUBLIC__/js/common.js"></script>
+<script>
+    //侧边栏
+    $(function(){
+        $('.shop-car').click(function(){
+            //购物车
+            if($('.shop-car-sider').hasClass('sh-hi')){
+                $('.shop-car-sider').animate({left:'35px',opacity:'hide'},'normal',function(){
+                    $('.shop-car-sider').removeClass('sh-hi');
+                    $('.shop-car .tab-cart-tip-warp-box').css('background-color','');
+                    $('.shop-car .tab-icon-tip').removeClass('jsshow');
+                });
+            }else{
+                $('.shop-car-sider').animate({left:'-280px',opacity:'show'},'normal',function(){
+                    $('.shop-car-sider').addClass('sh-hi');
+                    $('.shop-car .tab-cart-tip-warp-box').css('background-color','#e23435');
+                    $('.shop-car .tab-icon-tip').addClass('jsshow');
+                });
+            }
+
+        })
+        $(".comebacktop").click(function () {
+            //回到顶部
+            var speed=300;//滑动的速度
+            $('body,html').animate({ scrollTop: 0 }, speed);
+            return false;
+        });
+    });
+</script>
+
+<div class="public-top-layout w">
+  <div class="topbar wrapper">
+    <div class="user-entry">
+					Hi，欢迎来 <a href="/home/Index/index.html" title="首页" alt="首页">TP商城</a>
+			<a href="/home/User/login.html">请登录</a></span> <span><a href="/home/User/register.html">免费注册</a></span>
+		   </div>
+    <div class="quick-menu">
+		<dl class="down_app">
+	        <dt><em class="ico_tel"></em><a href="/Mobile/Index/index.html">手机移动端</a><i></i></dt>
+	        <dd>
+	       	<div class="qrcode"><img src="__PUBLIC__/picture/app.png"></div>
+	        <div class="hint"><h4>扫描二维码</h4> 下载手机客户端</div>
+	        <div class="addurl">
+	              <a href="http://fir.im/tpshopAndroid" target="_blank"><i class="icon-android"></i>Android</a>
+	              <a href="https://itunes.apple.com/cn/app/sou-bao-shang-cheng/id1119059153?mt=8" target="_blank"><i class="icon-apple"></i>iPhone</a>
+	        </div>
+	    	</dd>
+    	</dl>
+    	<dl>
+        <dt><em class="ico_shop"></em><a href="/home/Newjoin/index.html" title="商家管理">商家管理</a><i></i></dt>
+        <dd>
+          <ul>
+		    <li><a href="/home/Newjoin/index.html" title="招商入驻">招商入驻</a></li>
+            <li><a href="/Seller/Admin/login.html" target="_blank" title="登录商家管理中心">商家登录</a></li>
+          </ul>
+        </dd>
+      </dl>
+      <dl>
+        <dt><em class="ico_order"></em><a href="/home/Order/order_list.html">我的订单</a><i></i></dt>
+        <dd>
+          <ul>
+            <li><a href="/home/Order/order_list/type/WAITPAY.html">待付款订单</a></li>
+            <li><a href="/home/Order/order_list/type/WAITRECEIVE.html">待确认收货</a></li>
+            <li><a href="/home/Order/order_list/type/WAITCCOMMENT.html">待评价交易</a></li>
+          </ul>
+        </dd>
+      </dl>
+      <dl>
+        <dt><em class="ico_store"></em><a href="/home/User/goods_collect.html">我的收藏</a><i></i></dt>
+        <dd>
+          <ul>
+            <li><a href="/home/User/goods_collect/collect_type/1.html">商品收藏</a></li>
+            <li><a href="/home/User/goods_collect/collect_type/2.html">店铺收藏</a></li>
+          </ul>
+        </dd>
+      </dl>
+      <dl>
+        <dt><em class="ico_service"></em>客户服务<i></i></dt>
+        <dd>
+          <ul>
+            <li><a href="/home/Article/detail/article_id/1.html">帮助中心</a></li>
+            <li><a href="/home/Article/detail/article_id/2.html">售后服务</a></li>
+            <li><a href="/home/Article/detail/article_id/3.html">客服中心</a></li>
+          </ul>
+        </dd>
+      </dl>
+      	  <dl class="weixin">
+        <dt>关注我们<i></i></dt>
+        <dd>
+          <h4>扫描二维码<br/>关注商城微信号</h4>
+          <img src="__PUBLIC__/picture/weixin.png" > </dd>
+        </dl>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+//动画显示边条内容区域
+$(function() {
+	$(function() {
+		$('#activator').click(function() {
+			$('#content-cart').animate({'right': '-250px'});
+			$('#content-compare').animate({'right': '-250px'});
+			$('#vToolbar').animate({'right': '-60px'}, 300,
+			function() {
+				$('#ncHideBar').animate({'right': '59px'},	300);
+			});
+	        $('div[nctype^="bar"]').hide();
+		});
+		$('#ncHideBar').click(function() {
+			$('#ncHideBar').animate({
+				'right': '-86px'
+			},
+			300,
+			function() {
+				$('#content-cart').animate({'right': '-250px'});
+				$('#content-compare').animate({'right': '-250px'});
+				$('#vToolbar').animate({'right': '6px'},300);
+			});
+		});
+	});
+    $("#rtoolbar_cart").click(function(){
+        if ($("#content-cart").css('right') == '-250px') {
+         	$('#content-compare').animate({'right': '-250px'});
+    		$("#content-cart").animate({right:'0px'});
+    		$.ajax({
+    			type: "GET",
+    			url: "/index.php?m=Home&c=Cart&a=header_cart_list",//+tab,
+    			dataType:'html',		
+    			success: function (data) {
+    				var data = eval('('+data+')');
+    				$('#rtoolbar_cartlist').empty().html($.trim(data));
+    			}
+    		});
+        } else {
+        	$(".close").click();
+        	$(".chat-list").css("display",'none');
+        }
+	});
+	$(".close").click(function(){
+		$(".content-box").animate({right:'-250px'});
+      });
+
+	$(".quick-menu dl").hover(function() {
+		$(this).addClass("hover");
+	},
+	function() {
+		$(this).removeClass("hover");
+	});
+
+
+    $('div[nctype="a-barUserInfo"]').click(function(){
+        $('div[nctype="barUserInfo"]').toggle();
+    });
+    // 右侧bar登录
+    $('div[nctype="a-barLoginBox"]').click(function(){
+       // $('div[nctype="barLoginBox"]').toggle();
+       //document.getElementById('codeimage').src='http://www.xiaomi.com/shop/index.php?act=seccode&op=makecode&nchash=a8011a99&t=' + Math.random();
+    });
+    $('a[nctype="close-barLoginBox"]').click(function(){
+        $('div[nctype="barLoginBox"]').toggle();
+    });
+	    
+});
+
+function DrawImage(ImgD,FitWidth,FitHeight){
+    var image=new Image();
+    image.src=ImgD.src;
+    if(image.width>0 && image.height>0)
+    {
+        if(image.width/image.height>= FitWidth/FitHeight)
+        {
+            if(image.width>FitWidth)
+            {
+                ImgD.width=FitWidth;
+                ImgD.height=(image.height*FitWidth)/image.width;
+            }
+            else
+            {
+                ImgD.width=image.width;
+                ImgD.height=image.height;
+            }
+        }
+        else
+        {
+            if(image.height>FitHeight)
+            {
+                ImgD.height=FitHeight;
+                ImgD.width=(image.width*FitHeight)/image.height;
+            }
+            else
+            {
+                ImgD.width=image.width;
+                ImgD.height=image.height;
+            }
+        }
+    }
+}
+</script>
+<!-- PublicHeadLayout Begin -->
+<div class="header-wrap">
+  <div class="public-head-layout wrapper">
+    <h1 class="site-logo"><a href="/home/Index/index.html"><img src="__PUBLIC__/picture/5812c2b8db09b.jpg" class="pngFix"></a></h1>
+	<div class="heade_store_info">
+    	<div class="slogo">
+        	<a href="/home/Store/index/store_id/2.html" title="搜豹网络" class="store_name">海澜之家</a>
+            <br>
+        </div>
+        <div class="pj_info">
+        	<div class="shopdsr_item">
+                <div class="shopdsr_title">描述相符</div>
+                <div class="shopdsr_score">4.00</div>
+            </div>
+            <div class="shopdsr_item">
+                <div class="shopdsr_title">服务态度</div>
+                <div class="shopdsr_score">4.13</div>
+            </div>
+            <div class="shopdsr_item">
+                <div class="shopdsr_title">发货速度</div>
+                <div class="shopdsr_score">4.00</div>
+            </div>
+        </div>
+		<div class="sub">
+		 <div class="store-logo">
+		 			 	<img src="__PUBLIC__/picture/5812c2b8db09b.jpg" alt="海澜之家" title="海澜之家">
+		 			 </div>
+		 <!--店铺基本信息 S-->
+		<div class="ncs-info">
+		  <div class="title">
+		    <h4>海澜之家</h4>
+		  </div>
+		  <div class="content">
+		  					    <dl class="all-rate">
+			      <dt>综合评分：</dt>
+			      <dd>
+			        <div class="rating"><span style="width: {($store[store_desccredit]+$store[store_servicecredit]+$store[store_deliverycredit])*200/3}%"></span></div>
+			        <em>4</em>分</dd>
+			    </dl>
+			    <div class="ncs-detail-rate">
+			      <h5><strong>店铺动态评分</strong>与行业相比</h5>
+				      <ul>
+				           <li> 描述相符<span class="credit">4.0分</span>
+							   								   <span class="low"><i></i>小于<em>4.4</em></span>
+								   						   </li>
+				           <li> 服务态度<span class="credit">4.1分</span>
+							   								   <span class="low"><i></i>小于<em>4.4</em></span>
+								   						   </li>
+				           <li> 发货速度<span class="credit">4.0分</span>
+							   								   <span class="low"><i></i>小于<em>4.4</em></span>
+								   						   </li>
+				      </ul>
+			    </div>
+			    		        <dl class="messenger">
+		      <dt>联系方式：</dt>
+		      <dd><span member_id="2">
+		         		        	<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1273276548;?>&site=qq&menu=yes" title="QQ:1273276548"><img border="0" src="__PUBLIC__/picture/9c38552407844934978246b0cd75e04e.gif" style=" vertical-align: middle;"/></a>
+		         		      </span></dd>
+		    </dl>
+		      <!--只有实名认证实体店认证后才显示保障体系 by haoid.cn -->
+		      <!--保证金金额-->
+			  <!--保障体系 by haoid.cn-->
+					    <dl>
+		        <dt>所&nbsp;在&nbsp;地：</dt>
+		        <dd>西丽镇留仙大道1001号</dd>
+		    </dl>
+		    <div class="goto"><a href="/home/Store/index/store_id/2.html" >进入商家店铺</a>
+		    	<a href="javascript:collect_store('2')">收藏店铺<em nctype="store_collect"></em></a>
+		    </div>
+		    <div class="shop-other" id="shop-other">
+			    <ul>
+			      <li class="ncs-info-btn-map"><a href="javascript:void(0)" class="pngFix"><span>店铺地图</span><b></b><!-- 店铺地图 -->
+			        <div class="ncs-info-map" id="map_container" style="width:208px;height:208px;"></div>
+			        </a></li>
+			      <li class="ncs-info-btn-qrcode"><a href="javascript:void(0)" class="pngFix"><span>店铺二维码</span><b></b>
+			        <p class="ncs-info-qrcode"><img src="__PUBLIC__/picture/2.html" title="店铺原始地" style="width:208px;height:208px"></p>
+			        </a></li>
+			    </ul>
+		    </div>
+		  </div>
+		</div>
+		<!--店铺基本信息 E-->
+		<script type="text/javascript">
+            var cityName = "西丽镇留仙大道1001号"; //店铺详细地址
+            var address = "28240 28558 28581";  //省市区
+            var store_name = "海澜之家";  //店铺名
+		function initialize() {
+			map = new BMap.Map("map_container");
+			localCity = new BMap.LocalCity();
+			map.enableScrollWheelZoom();
+			localCity.get(function(cityResult){
+			  if (cityResult) {
+			  	var level = cityResult.level;
+			  	if (level < 13) level = 13;
+			    map.centerAndZoom(cityResult.center, level);
+			    cityResultName = cityResult.name;
+			    if (cityResultName.indexOf(cityName) >= 0) cityName = cityResult.name;
+			    	    getPoint();
+			   	}
+			});
+		}
+
+		function loadScript() {
+			var script = document.createElement("script");
+			script.src = "http://api.map.baidu.com/api?v=1.2&callback=initialize";
+			document.body.appendChild(script);
+		}
+		function getPoint(){
+			var myGeo = new BMap.Geocoder();
+			myGeo.getPoint(address, function(point){
+			  if (point) {
+			    setPoint(point);
+			  }
+			}, cityName);
+		}
+		function setPoint(point){
+			  if (point) {
+			    map.centerAndZoom(point, 16);
+			    var marker = new BMap.Marker(point);
+			    map.addOverlay(marker);
+			  }
+		}
+
+		// 当鼠标放在店铺地图上再加载百度地图。
+		$(function(){
+			$('.ncs-info-btn-map').one('mouseover',function(){
+				loadScript();
+			});
+			$('.ncs-info-btn-map').one('click',function(){
+				loadScript();
+			});
+		});
+
+		//收藏店铺
+		function collect_store(store_id){
+			if(getCookie('user_id') == ''){
+				pop_login();
+			}else{
+				$.ajax({
+					type:'post',
+					dataType:'json',
+					data:{store_id:store_id},
+					url:"/Home/Store/collect_store.html",
+					success:function(res){
+						if(res.status == 1){
+							layer.msg('成功添加至收藏夹', {icon: 1});
+						}else{
+							layer.msg(res.msg, {icon: 3});
+						}
+					}
+				});
+			}
+		}
+
+		function pop_login(){
+		    layer.open({
+		        type: 2,
+		        title: '<b>登陆TPshop网</b>',
+		        skin: 'layui-layer-rim',
+		        shadeClose: true,
+		        shade: 0.5,
+		        area: ['490px', '460px'],
+		        content: "/Home/User/pop_login.html",
+		    });
+		}
+		</script>
+		</div>
+	</div>
+    <div class="heade_service_info">
+        <div class="displayed">
+            <i></i>在线客服
+            <div class="sub">
+			  <div class="ncs-message-bar">
+			  	<div class="default">
+			    	<h5><a href="/home/Store/index/store_id/2.html" title="进入店铺">海澜之家</a></h5>
+			    	<span member_id="1"></span>
+			    </div>
+			    <div class="service-list" store_id="1" store_name="海澜之家">
+				     <dl>
+									      <dt>售前客服：</dt>
+						<dd><span>店长</span><span>
+															<a href="http://amos1.taobao.com/msg.ww?v=2&amp;uid=525855&amp;s=2" target="_blank">
+									<img border="0" src="__PUBLIC__/picture/t1b7m.xexuxxahnz_x-16-16.gif" alt="点击这里给我发消息" style=" vertical-align: middle;">
+								</a>
+										                </span>
+						</dd>
+									      <dt>售前客服：</dt>
+						<dd><span>售前1</span><span>
+															<a href="http://wpa.qq.com/msgrd?v=3&uin=584585255&site=qq&menu=yes" title="QQ:584585255" target="_blank">
+									<img border="0" src="__PUBLIC__/picture/738bf1037d774e0fb8eab98c48344a24.gif" alt="点击这里给我发消息" style=" vertical-align: middle;">
+								</a>
+											                </span>
+						</dd>
+										 </dl>
+				     <dl>
+						 							 <dt>售后客服：</dt>
+							 <dd><span>小君</span><span>
+															<a href="http://wpa.qq.com/msgrd?v=3&uin=5485252&site=qq&menu=yes" title="QQ:5485252" target="_blank">
+									<img border="0" src="__PUBLIC__/picture/4bcc83adc5764847b84f2129844c9daf.gif" alt="点击这里给我发消息" style=" vertical-align: middle;">
+								</a>
+											                </span>
+							 </dd>
+						 							 <dt>售后客服：</dt>
+							 <dd><span>店仆</span><span>
+															<a href="http://amos1.taobao.com/msg.ww?v=2&amp;uid=2342344&amp;s=2" target="_blank">
+									<img border="0" src="__PUBLIC__/picture/t1b7m.xexuxxahnz_x-16-16.gif" alt="点击这里给我发消息" style=" vertical-align: middle;">
+								</a>
+										                </span>
+							 </dd>
+						 				      </dl>
+			    </div>
+			  </div>
+            </div>
+        </div>
+   </div>
+    <div id="search" class="head-search-bar">
+	<!--商品和店铺-->
+      <!--<ul class="tab">
+        <li title="请输入您要搜索的商品关键字" act="search" class="current">商品</li>
+        <li title="请输入您要搜索的店铺关键字" act="store_list">店铺</li>
+      </ul>-->
+      <form class="search-form" method="get" action="/home/Goods/search.html">
+        <input type="hidden" value="search" id="search_act" name="act">
+         <input placeholder="请输入您要搜索的商品关键字" name="q" id="q" type="text" class="input-text" value="" maxlength="60" x-webkit-speech lang="zh-CN" onwebkitspeechchange="foo()" x-webkit-grammar="builtin:search" />
+        <input type="submit" id="button" value="搜索" class="input-submit">
+      </form>
+	  <!--搜索关键字-->
+      <!--<div class="keyword">热门搜索：
+          <ul>
+             <li><a href="http://www.xiaomi.com/shop/index.php?act=search&op=index&keyword=%E5%A5%BD%E5%95%86%E5%9F%8EV4">好商城V4</a></li>
+             <li><a href="http://www.xiaomi.com/shop/index.php?act=search&op=index&keyword=%E5%86%85%E8%A1%A3">内衣</a></li>
+             <li><a href="http://www.xiaomi.com/shop/index.php?act=search&op=index&keyword=%E7%AC%94%E8%AE%B0%E6%9C%AC">笔记本</a></li>
+             <li><a href="http://www.xiaomi.com/shop/index.php?act=search&op=index&keyword=%E6%89%8B%E6%9C%BA">手机</a></li>
+           </ul>
+      </div>-->
+    </div>
+  </div>
+</div>
+<!-- PublicHeadLayout End -->
+<link href="__PUBLIC__/css/shop.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/css/shop_custom.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/css/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/js/shop.js" charset="utf-8"></script>
+<div id="header" class="ncs-header"></div>
+<div id="store_decoration_content" class="background" style="">
+<div class="ncsl-nav">
+          <!-- 不启用店铺装修 -->
+	<div class="banner">
+		<a href="/home/Store/index/store_id/2.html" class="img">
+       	  	      	<img src="__PUBLIC__/picture/5812c0fa81109.jpg" alt="海澜之家" title="海澜之家" class="pngFix">
+	              </a>
+    </div>
+        <div id="nav" class="ncs-nav">
+      <ul>
+        <li class="active"  ><a href="/home/Store/index/store_id/2.html"><span>店铺首页<i></i></span></a></li>
+        <li class="normal" ><a href="/home/Store/dynamic/store_id/2.html"><span>店铺动态<i></i></span></a></li>
+              		<li class="normal"><a href="/home/Store/goods_list/store_id/2/cat_id/14.html"><span>休闲裤<i></i></span></a></li>
+      		      		<li class="normal"><a href="/home/Store/goods_list/store_id/2/cat_id/17.html"><span>修身直筒<i></i></span></a></li>
+      		      		<li class="normal"><a href="/home/Store/goods_list/store_id/2/cat_id/16.html"><span>简约纯色<i></i></span></a></li>
+      		      		<li class="normal"><a href="/home/Store/goods_list/store_id/2/cat_id/18.html"><span>手机数码<i></i></span></a></li>
+      		      		<li class="normal"><a href="/home/Store/goods_list/store_id/2/cat_id/19.html"><span>手机<i></i></span></a></li>
+      		        	<li class="normal">
+        	        	<a href="/home/Store/store_news/store_id/2/sn_id/5.html">
+        	        	<span>秋季热卖<i></i></span></a>
+        	</li>
+      	        	<li class="normal">
+        	        	<a href="/home/Store/store_news/store_id/2/sn_id/7.html">
+        	        	<span>夹克<i></i></span></a>
+        	</li>
+      	        	<li class="normal">
+        	        	<a href="/home/Store/store_news/store_id/2/sn_id/8.html">
+        	        	<span>针织衫/毛衫<i></i></span></a>
+        	</li>
+      	      </ul>
+    </div>
+  </div>
+    <div class="wrapper mt10">
+  <div class="ncs-main">
+    <div class="flexslider">
+      <ul class="slides">
+      	          	<li><a href="http://"><img src="__PUBLIC__/picture/5812c49152532.jpg"></a></li>
+         	         	<li><a href="http://"><img src="__PUBLIC__/picture/5812c4a5e97dd.jpg"></a></li>
+         	         	<li><a href="http://"><img src="__PUBLIC__/picture/5812c50650c8d.jpg"></a></li>
+         	      </ul>
+    </div>
+    <div class="ncs-main-container">
+      <div class="title"> <span><a href="/home/Store/goods_list/store_id/2/key/is_recommend.html" class="more">更多</a></span>
+        <h4>推荐商品</h4>
+      </div>
+      <div class="content ncs-goods-list">
+      	 <ul>
+	          <li>
+	             <dl>
+	              <dt>
+                     <a href="/home/Goods/goodsInfo/id/143.html" class="goods-thumb" target="_blank">
+                        <img src="__PUBLIC__/picture/goods_thumb_143_240_240.jpeg" alt="haier海尔 BC-93TMPF 93升单门冰箱"/>
+                      </a>
+        	                <ul class="goods-thumb-scroll-show">
+                           	      <li class="selected"><a href="javascript:void(0); rel=0"><img src="__PUBLIC__/picture/5719923fb2708.jpg"/></a></li>
+                               	  <li ><a href="javascript:void(0); rel=1"><img src="__PUBLIC__/picture/57199253bf198.jpg"/></a></li>
+                               	  <li ><a href="javascript:void(0); rel=2"><img src="__PUBLIC__/picture/57199253abf3d.jpg"/></a></li>
+                               	  <li ><a href="javascript:void(0); rel=3"><img src="__PUBLIC__/picture/57199253998b6.jpg"/></a></li>
+        	               </ul>
+	              </dt>
+	              <dd class="goods-name">
+                      <a href="/home/Goods/goodsInfo/id/143.html" title="haier海尔 BC-93TMPF 93升单门冰箱" target="_blank">haier海尔 BC-93TMPF 93升单门冰箱</a>
+                </dd>
+	              <dd class="goods-info"><span class="price"><i>&yen;</i> 699.00 </span> <span class="goods-sold">已售：<strong>0</strong> 件</span></dd>
+	            </dl>
+	          </li>
+				          
+	    </ul>
+    
+        </div>
+    </div>
+    <div class="ncs-main-container">
+      <div class="title"><span><a href="/home/Store/goods_list/store_id/2/key/is_new.html" class="more">更多</a></span>
+        <h4>新品</h4>
+      </div>
+      <div class="content ncs-goods-list">
+      	  <ul>
+			 <li>
+	            <dl>
+	              <dt>
+                  <a href="/home/Goods/goodsInfo/id/143.html" class="goods-thumb" target="_blank">
+                  <img src="__PUBLIC__/picture/goods_thumb_143_240_240.jpeg" alt="haier海尔 BC-93TMPF 93升单门冰箱"/></a>
+	                <ul class="goods-thumb-scroll-show">
+                    	  <li class="selected"><a href="javascript:void(0); rel=0"><img src="__PUBLIC__/picture/5719923fb2708.jpg"/></a></li>
+	                   	  <li ><a href="javascript:void(0); rel=1"><img src="__PUBLIC__/picture/57199253bf198.jpg"/></a></li>
+	                   	  <li ><a href="javascript:void(0); rel=2"><img src="__PUBLIC__/picture/57199253abf3d.jpg"/></a></li>
+	                   	  <li ><a href="javascript:void(0); rel=3"><img src="__PUBLIC__/picture/57199253998b6.jpg"/></a></li>
+	               </ul>
+	              </dt>
+
+	              <dd class="goods-name">
+                      <a href="/home/Goods/goodsInfo/id/143.html" title="haier海尔 BC-93TMPF 93升单门冰箱" target="_blank">haier海尔 BC-93TMPF 93升单门冰箱</a>
+                  </dd>
+	              <dd class="goods-info"><span class="price">
+                  <i>&yen;</i> 699.00 </span> <span class="goods-sold">已售：<strong>0</strong> 件</span>
+                  </dd>
+	          </dl>
+	       </li>
+		 </ul>
+    </div>
+    </div>
+  </div>
+  <div class="ncs-sidebar">
+    
+	<div class="ncs-sidebar-container ncs-class-bar">
+	  <div class="title">
+	    <h4>商品分类</h4>
+	  </div>
+	  <div class="content">
+	    <p>
+		    <span><a href="/home/Store/goods_list/store_id/2/key/is_new.html">新品</a></span>
+		    <span><a href="/home/Store/goods_list/store_id/2/key/shop_price.html">价格</a></span>
+		    <span><a href="/home/Store/goods_list/store_id/2/key/sales_sum.html">销量</a></span>
+		    <span><a href="/home/Store/goods_list/store_id/2/key/is_recommend.html">人气</a></span>
+	    </p>
+	    <div class="ncs-search">
+	      <form id="" name="searchShop" method="get" action="/Home/Store/goods_list.html" >
+	        <input type="hidden" name="store_id" value="2" />
+	        <input type="text" class="text w120" name="keyword" value="" placeholder="搜索店内商品">
+	        <a href="javascript:document.searchShop.submit();" class="ncs-btn">搜索</a>
+	      </form>
+	    </div>
+	    <ul class="ncs-submenu">
+	      <li><span class="ico-none"><em>-</em></span><a href="/home/Store/goods_list/store_id/2.html">全部商品</a></li>
+	      	      <li><span class="ico-none"  onclick="class_list(this);" span_id="13"><em>-</em></span>
+	      		<a href="/home/Store/goods_list/store_id/2/cat_id/13.html">夹克</a>
+	      			      		<ul id="stc_13" style="display: block;">
+	      				                <li><span class="ico-sub">&nbsp;</span><a href="/home/Store/goods_list/store_id/2/cat_id/15.html">时尚花纹</a></li>
+	                	                <li><span class="ico-sub">&nbsp;</span><a href="/home/Store/goods_list/store_id/2/cat_id/16.html">简约纯色</a></li>
+	                	            </ul>
+	            	      </li>
+	      	      <li><span class="ico-none"  onclick="class_list(this);" span_id="14"><em>-</em></span>
+	      		<a href="/home/Store/goods_list/store_id/2/cat_id/14.html">休闲裤</a>
+	      			      		<ul id="stc_14" style="display: block;">
+	      				                <li><span class="ico-sub">&nbsp;</span><a href="/home/Store/goods_list/store_id/2/cat_id/17.html">修身直筒</a></li>
+	                	            </ul>
+	            	      </li>
+	      	      <li><span class="ico-none"  onclick="class_list(this);" span_id="18"><em>-</em></span>
+	      		<a href="/home/Store/goods_list/store_id/2/cat_id/18.html">手机数码</a>
+	      			      		<ul id="stc_18" style="display: block;">
+	      				                <li><span class="ico-sub">&nbsp;</span><a href="/home/Store/goods_list/store_id/2/cat_id/19.html">手机</a></li>
+	                	            </ul>
+	            	      </li>
+	      	    </ul> 
+	  </div>
+	</div>
+
+	<div class="ncs-sidebar-container ncs-top-bar">
+	  <div class="title">
+	    <h4>商品排行</h4>
+	  </div>
+	  <div class="content">
+	    <ul class="ncs-top-tab pngFix">
+	      <li id="hot_sales_tab" class="current"><a href="/home/Store/goods_list/store_id/2/key/sales_sum.html">热销商品排行</a></li>
+	      <li id="hot_collect_tab"><a href="/home/Store/goods_list/store_id/2/key/collect_sum.html">收藏商品排行</a></li>
+	    </ul>
+	    <div id="hot_sales_list" class="ncs-top-panel">
+	        <ol>
+	        	         <li>
+	          <dl>
+	            <dt><a href="/home/Goods/goodsInfo/id/106.html">Haier/海尔 BCD-572WDPM 572升 对开门电...</a></dt>
+	            <dd class="goods-pic"><a href="/home/Goods/goodsInfo/id/106.html"><span class="thumb size40"><i></i><img src="__PUBLIC__/picture/goods_thumb_106_60_60.jpeg"  onload="javascript:DrawImage(this,40,40);"></span></a>
+	              <p><span class="thumb size100"><i></i><img src="__PUBLIC__/picture/goods_thumb_106_240_240.jpeg" onload="javascript:DrawImage(this,100,100);" title="Haier/海尔 BCD-572WDPM 572升 对开门电冰箱 风冷无霜 大容量"><big></big><small></small></span></p>
+	            </dd>
+	            <dd class="price pngFix">300.00</dd>
+	            <dd class="selled pngFix">售出：<strong>1</strong>笔</dd>
+	          </dl>
+	         </li>
+	        	       
+	 </ol>
+	    </div>
+	    <p><a href="/home/Store/goods_list/store_id/2.html">查看本店其他商品</a></p>
+	  </div>
+	</div>
+	<script type="text/javascript">
+	    $(document).ready(function(){
+	        //热销排行切换
+	        $('#hot_sales_tab').on('mouseenter', function() {
+	            $(this).addClass('current');
+	            $('#hot_collect_tab').removeClass('current');
+	            $('#hot_sales_list').removeClass('hide');
+	            $('#hot_collect_list').addClass('hide');
+	        });
+	        $('#hot_collect_tab').on('mouseenter', function() {
+	            $(this).addClass('current');
+	            $('#hot_sales_tab').removeClass('current');
+	            $('#hot_sales_list').addClass('hide');
+	            $('#hot_collect_list').removeClass('hide');
+	        });
+	    });
+	    /** left.php **/
+	    // 商品分类
+	    function class_list(obj){
+	    	var stc_id=$(obj).attr('span_id');
+	    	var span_class=$(obj).attr('class');
+	    	if(span_class=='ico-block') {
+	    		$("#stc_"+stc_id).show();
+	    		$(obj).html('<em>-</em>');
+	    		$(obj).attr('class','ico-none');
+	    	}else{
+	    		$("#stc_"+stc_id).hide();
+	    		$(obj).html('<em>+</em>');
+	    		$(obj).attr('class','ico-block');
+	    	}
+	    }
+	</script> 
+  </div>
+</div>
+<!-- 引入幻灯片JS --> 
+<script type="text/javascript" src="__PUBLIC__/js/jquery.flexslider-min.js"></script> 
+<!-- 绑定幻灯片事件 --> 
+<script type="text/javascript">
+	$(window).load(function() {
+		$('.flexslider').flexslider();
+	    // 图片切换效果
+	    $('.goods-thumb-scroll-show').find('a').mouseover(function(){
+	        $(this).parents('li:first').addClass('selected').siblings().removeClass('selected');
+	        var _src = $(this).find('img').attr('src');
+	        _src = _src.replace('_60.', '_240.');
+	        $(this).parents('dt').find('.goods-thumb').find('img').attr('src', _src);
+	    });
+	});
+</script>
+  <div class="clear">&nbsp;</div>
+</div>
+<div id="faq">
+  <div class="faq-wrapper">
+      <ul>
+                        <li>
+                  <dl>
+                      <dt>
+                          入驻流程                      </dt>
+                                              <dd><i></i><a href="/Home/Article/detail/article_id/2.html" title="商家入驻"> 商家入驻 </a></dd>
+                                        </dl>
+              </li>
+                        <li>
+                  <dl>
+                      <dt>
+                          联系方式                      </dt>
+                                        </dl>
+              </li>
+                        <li>
+                  <dl>
+                      <dt>
+                          招商标准                      </dt>
+                                        </dl>
+              </li>
+                        <li>
+                  <dl>
+                      <dt>
+                          资费标准                      </dt>
+                                              <dd><i></i><a href="/Home/Article/detail/article_id/3.html" title="京豆费用标准"> 京豆费用标准 </a></dd>
+                                        </dl>
+              </li>
+                        <li>
+                  <dl>
+                      <dt>
+                          信息公告                      </dt>
+                                        </dl>
+              </li>
+                </ul>
+<div class="help">
+		<div class="w1190 clearfix">
+    		<div class="contact f-l">
+    			<div class="contact-border clearfix">
+        			<span class="ic tel t20">0755-86140485</span>
+        			<span class="ic mail">soubao@163.cn</span>
+        			<div class="attention cleafix">
+        				<div class="weixin f-l">						
+    						<img src="__PUBLIC__/picture/qrcode.png" class="f-l jImg img-error">
+	   					<p class="f-l">
+        						<span>扫一扫</span>
+        						<span>关注我们</span>
+        					</p>
+        				</div>
+        				<div class="weibo f-l">
+        					<div class="ic qq" style="padding-left: 0px;"><ul><li><a target="_blank" >腾讯微博</a></li></ul></div>
+        					<div class="ic sina" style="padding-left: 0px;"><ul><li><a target="_blank" >新浪微博</a></li></ul></div>
+        				</div>
+        			</div>
+    			</div>
+    		</div>
+		</div>
+	</div>			
+      </div>
+</div>
+<div id="footer" class="wrapper">
+  <p><a href="http://www.tpshop.com">首页</a>
+                | <a  href="">招聘英才</a>
+                | <a  href="">合作及洽谈</a>
+                | <a  href="">联系我们</a>
+                | <a  href="">关于我们</a>
+                | <a  href="">物流自取</a>
+                | <a  href="">友情链接</a>
+              </p>
+  Copyright 2015 <a href="http://www.tpshop.cn" target="_blank">TP商城</a> All rights reserved.<br />本演示来源于<a href="http://www.tpshop.cn" target="_blank">www.tpshop.cn</a><br/></div>
+<!-- 对比 -->
+<script type="text/javascript">
+$(function(){
+	//$('[nctype="mcard"]').membershipCard({type:'shop'});
+});
+function fade() {
+	$("img[rel='lazy']").each(function () {
+		var $scroTop = $(this).offset();
+		if ($scroTop.top <= $(window).scrollTop() + $(window).height()) {
+			$(this).hide();
+			$(this).attr("src", $(this).attr("data-url"));
+			$(this).removeAttr("rel");
+			$(this).removeAttr("name");
+			$(this).fadeIn(500);
+		}
+	});
+}
+if($("img[rel='lazy']").length > 0) {
+	$(window).scroll(function () {
+		fade();
+	});
+};
+fade();
+</script>
+<script type="text/javascript">
+$(function(){
+	$('a[nctype="search_in_store"]').click(function(){
+		if ($('#keyword').val() == '') {
+			return false;
+		}
+		$('#search_act').val('show_store');
+		$('<input type="hidden" value="1" name="store_id" /> <input type="hidden" name="op" value="goods_all" />').appendTo("#formSearch");
+		$('#formSearch').submit();
+	});
+	$('a[nctype="search_in_shop"]').click(function(){
+		if ($('#keyword').val() == '') {
+			return false;
+		}
+		$('#formSearch').submit();
+	});
+	$('#keyword').css("color","#999999");
+
+	var storeTrends	= true;
+	$('.favorites').mouseover(function(){
+		var $this = $(this);
+		if(storeTrends){
+			$.getJSON('index.php?act=show_store&op=ajax_store_trend_count&store_id=1', function(data){
+				$this.find('li:eq(2)').find('a').html(data.count);
+				storeTrends = false;
+			});
+		}
+	});
+
+	$('a[nctype="share_store"]').click(function(){
+		ajax_form('sharestore', '分享店铺', 'index.php?act=member_snsindex&op=sharestore_one&inajax=1&sid=1');
+	});
+});
+</script>
+</body>
+</html>
