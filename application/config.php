@@ -17,7 +17,7 @@ return [
     // 应用命名空间
     'app_namespace'          => 'app',
     // 应用调试模式
-    'app_debug'              => false,
+    'app_debug'              => true,
     // 应用Trace
     'app_trace'              => false,
     // 应用模式状态
@@ -141,7 +141,9 @@ return [
     ],
 
     // 视图输出字符串内容替换
-    'view_replace_str'       => [],
+    'view_replace_str'       => [
+                                    '__PUBLIC__'=>'/public/static',
+                                ],
     // 默认跳转页面对应的模板文件
     'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
     'dispatch_error_tmpl'    => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
@@ -237,5 +239,23 @@ return [
         'type'      => 'bootstrap',
         'var_page'  => 'page',
         'list_rows' => 15,
+    ],
+
+    //验证码配置
+    'captcha' => [
+    // 验证码字符集合
+    'codeSet' => '2345678abcdefhijkmnpqrstuvwxyzABCDEFGHJKLMNPQRTUVWXY',
+    // 验证码字体大小(px)
+    'fontSize' => 16,
+    // 是否画混淆曲线
+    'useCurve' => true,
+    // 验证码图片高度
+    'imageH' => 40,
+    // 验证码图片宽度
+    'imageW' => 120,
+    // 验证码位数
+    'length' => 4,
+    // 验证成功后是否重置
+    'reset' => false
     ],
 ];
