@@ -7,6 +7,10 @@ class Index extends Base
 	{
 		//获取菜单
 		$arr = getMenu();
+		/*foreach($arr as $key=>$value){
+			dump($key);
+		}
+		die;*/
 		$this->assign('jj','sjj');
 		$this->assign('arr', $arr);
 		return $this->fetch();
